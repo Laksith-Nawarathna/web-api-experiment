@@ -54,13 +54,22 @@
 
 const cursor = document.querySelector('#cursor');
 const cursorRadius = cursor.clientWidth / 2;
-console.log(cursorX, cursorY);
+
+
+let cursorX;
+let cursorY;
+
+
+let tmrId = null;
+
+
+// console.log(cursorXpos(), cursorYpos());
 
 class Box {
     #width;
     #height;
-    #dx;
-    #dy;
+    dx;
+    dy;
     #elm;
     #posTop;
     #posLeft;
@@ -76,8 +85,8 @@ class Box {
         this.#height = 50;
         this.#width = 50;
 
-        this.#dx = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
-        this.#dy = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
+        this.dx = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
+        this.dy = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
 
         this.#elm.style.height = `${this.#height}px`;
         this.#elm.style.width = `${this.#width}px`;
@@ -96,13 +105,13 @@ class Box {
 
     move() {
         if (this.#elm.offsetTop >= (innerHeight - this.#height) || this.#elm.offsetTop <= 0) {
-            this.#dy = -this.#dy;
+            this.dy = -this.dy;
         } else if (this.#elm.offsetLeft >= (innerWidth - this.#width) || this.#elm.offsetLeft <= 0) {
-            this.#dx = -this.#dx;
+            this.dx = -this.dx;
         }
 
-        this.#posTop = this.#elm.offsetLeft + this.#dx;
-        this.#posLeft = this.#elm.offsetTop + this.#dy;
+        this.#posTop = this.#elm.offsetLeft + this.dx;
+        this.#posLeft = this.#elm.offsetTop + this.dy;
 
         this.#elm.style.left = `${this.#posTop}px`;
         this.#elm.style.top = `${this.#posLeft}px`;
@@ -122,14 +131,14 @@ class Box {
     }
 }
 
-// const boxes = [];
-// for(let i = 0; i < 50; i++){
-//     boxes.push(new Box());
-// }
+const boxes = [];
+for(let i = 0; i < 50; i++){
+    boxes.push(new Box());
+}
 
-// setInterval(() => {
-//     boxes.forEach( box => box.move());
-// }, 20);
+setInterval(() => {
+    boxes.forEach( box => box.move());
+}, 20);
 
 const marble = new Box();
 
@@ -143,3 +152,57 @@ setInterval(() => {
 
 
 }, 20);
+
+
+
+
+
+
+cursor.addEventListener('mousemove', (eventData) => {
+
+    if (tmrId) {
+        clearTimeout(tmrId);
+        tmrId = null;
+    }
+    circle.style.opacity = 1;
+    cursorX = eventData.pageX;
+    cursorY = eventData.pageY;
+    circle.style.left = `${cursorX}px`;
+    circle.style.top = `${cursorY}px`;
+
+    // function cursorXpos(){
+    //     return cursorX;
+    // }
+
+    // function cursorYpos(){
+    //     return cursorY;
+    // }
+
+    tmrId = setTimeout(() => {
+        circle.style.opacity = 0;
+    }, 2000);
+
+    // console.log(marble.positionX());
+
+    var p = (cursorX - marble.positionX()) ** 2 + (cursorY - marble.positionY()) ** 2;
+    var q = (cursorRadius + marble.radius()) ** 2;
+
+    dx = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
+    dy = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
+    // console.log(p, q);
+    console.log(dx, dy);
+    function sweep() {
+        if (p <= q) {
+            marble.dx = -dx;
+            marble.dy = -dy;
+            marble.style.left = `${marble.offsetLeft + dx}px`;
+            marble.style.top = `${marble.offsetTop + dy}px`;
+        }
+    }
+
+    sweep();
+
+
+});
+
+// console.log(cursorX, cursorY);

@@ -1,10 +1,8 @@
 
 const circle = document.getElementById('cursor');
 
-let cursorX = null;
-let cursorY = null;
 
-let tmrId = null;
+// let tmrId = null;
 
 circle.addEventListener('mousemove', (eventData) => {
 
@@ -13,10 +11,10 @@ circle.addEventListener('mousemove', (eventData) => {
         tmrId = null;
     }
     circle.style.opacity = 1;
-    cursorX = eventData.pageX;
-    cursorY = eventData.pageY;
-    circle.style.left = `${cursorX}px`;
-    circle.style.top = `${cursorY}px`;
+    // cursorX = eventData.pageX;
+    // cursorY = eventData.pageY;
+    circle.style.left = `${eventData.pageX}px`;
+    circle.style.top = `${eventData.pageY}px`;
 
     tmrId = setTimeout(() => {
         circle.style.opacity = 0;
