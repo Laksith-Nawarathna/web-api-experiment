@@ -1,56 +1,3 @@
-// console.log(window.innerHeight);
-// console.log(window.outerHeight);
-// console.log(window.innerWidth);
-// console.log(window.outerWidth);
-
-// console.log(boxElm.clientHeight, boxElm.clientWidth);
-
-// boxElm.style.top = 0;
-// boxElm.style.top = `${innerHeight - 80}px`;
-
-/* ========================== method - 1 ===================================== */
-
-// const boxElm = document.querySelector('#box');
-
-// let y = 0;
-// let x =0;
-// let up = false;
-// let con = false;
-
-// setInterval(() => {
-//     boxElm.style.top = `${y}px`;
-//     boxElm.style.left = `${x}px`;
-//     y += !up ? 10 : -10;
-//     x += !con ? 10 : -10;
-//     if(y + boxElm.offsetHeight >= innerHeight){
-//         up = true;
-//     }else if(y <= 0){
-//         up = false;
-//     }else if(x + boxElm.offsetWidth >= innerWidth){
-//         con = true;
-//     }else if(x <= 0){
-//         con = false;
-//     }
-// },50);
-
-
-/* ======================== methos - 2 ============================== */
-
-// let x= 0;
-// let startY = (innerHeight - boxElm.offsetHeight) / 2;
-
-// setInterval(() => {
-//     const y = startY + Math.sin(x++ / 180) * 250;
-//     boxElm.style.top = `${y}px`;
-// },5);
-
-
-/* ====================== method - 3 ==================================== */
-// const vH = (innerHeight - boxElm.offsetHeight);
-// const vW = (innerWidth - boxElm.offsetWidth);
-
-// const vH = (innerHeight - 60);
-// const vW = (innerWidth - 60);
 
 const cursor = document.querySelector('#cursor');
 const cursorRadius = cursor.clientWidth / 2;
@@ -79,11 +26,11 @@ class Box {
         this.#elm.classList.add('box');
         document.body.append(this.#elm);
 
-        // this.#height = 50 + (Math.random() * 15);
-        // this.#width = 50 + (Math.random() * 15);
+        this.#height = 50 + (Math.random() * 15);
+        this.#width = 50 + (Math.random() * 15);
 
-        this.#height = 50;
-        this.#width = 50;
+        // this.#height = 50;
+        // this.#width = 50;
 
         this.dx = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
         this.dy = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
@@ -98,8 +45,8 @@ class Box {
         const blue = Math.floor(Math.random() * 256);
         const alpha = 0.4 + Math.random();
         this.#elm.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-        // this.#elm.style.borderRadius = `${Math.random() * 101}%`;
-        this.#elm.style.borderRadius = `${100}%`;
+        this.#elm.style.borderRadius = `${Math.random() * 101}%`;
+        // this.#elm.style.borderRadius = `${100}%`;
         this.#elm.style.transform = `rotate(${Math.random() * 361}deg)`;
     }
 
@@ -110,6 +57,9 @@ class Box {
             this.dx = -this.dx;
         }
 
+        let x1 = this.#elm.left;
+        let y1 = this.#elm.offsetTop;
+
         this.#posTop = this.#elm.offsetLeft + this.dx;
         this.#posLeft = this.#elm.offsetTop + this.dy;
 
@@ -118,17 +68,17 @@ class Box {
 
     }
 
-    radius() {
-        return this.#height / 2;
-    }
+    // radius() {
+    //     return this.#height / 2;
+    // }
 
-    positionX() {
-        return this.#posLeft;
-    }
+    // positionX() {
+    //     return this.#posLeft;
+    // }
 
-    positionY() {
-        return this.#posTop;
-    }
+    // positionY() {
+    //     return this.#posTop;
+    // }
 }
 
 const boxes = [];
@@ -140,69 +90,69 @@ setInterval(() => {
     boxes.forEach( box => box.move());
 }, 20);
 
-const marble = new Box();
+// const marble = new Box();
 
-console.log(marble.radius());
+// console.log(marble.radius());
 
-setInterval(() => {
-    marble.move();
-    // if(marble.radius() + cursorRadius)
-    // console.log(marble.positionX());
-    // console.log(marble.positionY() + marble.radius());
-
-
-}, 20);
+// setInterval(() => {
+//     marble.move();
+//     if(marble.radius() + cursorRadius)
+//     console.log(marble.positionX());
+//     console.log(marble.positionY() + marble.radius());
 
 
+// }, 20);
 
 
 
 
-cursor.addEventListener('mousemove', (eventData) => {
-
-    if (tmrId) {
-        clearTimeout(tmrId);
-        tmrId = null;
-    }
-    circle.style.opacity = 1;
-    cursorX = eventData.pageX;
-    cursorY = eventData.pageY;
-    circle.style.left = `${cursorX}px`;
-    circle.style.top = `${cursorY}px`;
-
-    // function cursorXpos(){
-    //     return cursorX;
-    // }
-
-    // function cursorYpos(){
-    //     return cursorY;
-    // }
-
-    tmrId = setTimeout(() => {
-        circle.style.opacity = 0;
-    }, 2000);
-
-    // console.log(marble.positionX());
-
-    var p = (cursorX - marble.positionX()) ** 2 + (cursorY - marble.positionY()) ** 2;
-    var q = (cursorRadius + marble.radius()) ** 2;
-
-    dx = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
-    dy = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
-    // console.log(p, q);
-    console.log(dx, dy);
-    function sweep() {
-        if (p <= q) {
-            marble.dx = -dx;
-            marble.dy = -dy;
-            marble.style.left = `${marble.offsetLeft + dx}px`;
-            marble.style.top = `${marble.offsetTop + dy}px`;
-        }
-    }
-
-    sweep();
 
 
-});
+// cursor.addEventListener('mousemove', (eventData) => {
+
+//     if (tmrId) {
+//         clearTimeout(tmrId);
+//         tmrId = null;
+//     }
+//     circle.style.opacity = 1;
+//     cursorX = eventData.pageX;
+//     cursorY = eventData.pageY;
+//     circle.style.left = `${cursorX}px`;
+//     circle.style.top = `${cursorY}px`;
+
+//     function cursorXpos(){
+//         return cursorX;
+//     }
+
+//     function cursorYpos(){
+//         return cursorY;
+//     }
+
+//     tmrId = setTimeout(() => {
+//         circle.style.opacity = 0;
+//     }, 2000);
+
+//     // console.log(marble.positionX());
+
+//     // var p = (cursorX - marble.positionX()) ** 2 + (cursorY - marble.positionY()) ** 2;
+//     // var q = (cursorRadius + marble.radius()) ** 2;
+
+//     // dx = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
+//     // dy = Math.random() * 10 * (Math.random() < -0.5 ? -1 : 1);
+//     // // console.log(p, q);
+//     // console.log(dx, dy);
+//     // function sweep() {
+//     //     if (p <= q) {
+//     //         marble.dx = -dx;
+//     //         marble.dy = -dy;
+//     //         marble.style.left = `${marble.offsetLeft + dx}px`;
+//     //         marble.style.top = `${marble.offsetTop + dy}px`;
+//     //     }
+//     // }
+
+//     // sweep();
+
+
+// });
 
 // console.log(cursorX, cursorY);

@@ -1,14 +1,12 @@
 const stringArray = ['Hi, I\'m Eranga Bandara ',
                      'a full stack developer from Sri Lanka',
+                     'Contact me ->',
+                     'https://www.linkedin.com/in/eranga-bandara-75667b15a/',
                     'erangab@yahoo.com'];
 
 
-// const paper = document.querySelector('#output');
 const text = document.querySelector('#text');
 
-
-// console.log(stringArray.length);
-// paper.innerText = stringArray[0][3];
 let sentenceIndex = 0;
 let charIndex = 1;
 let erase = false;
@@ -59,26 +57,3 @@ function animateText(timestamp){
 }
 
 requestAnimationFrame(animateText);
-
-
-// setInterval(() => {
-//     let character = stringArray[sentenceIndex][charIndex++];
-//     if(character === ' '){
-//         paper.innerText = paper.innerText + '_';
-//     }
-//     if(character === undefined){
-//         paper.innerText = "";
-        
-//         sentenceIndex++;
-//         charIndex = 0;
-//         character = stringArray[sentenceIndex][charIndex++];
-//     }
-//     paper.innerText = paper.innerText + character;
-//     if(sentenceIndex > stringArray.lenth){
-//         sentenceIndex = 0;
-//     }
-//     if(charIndex > stringArray[sentenceIndex].length){
-//         sentenceIndex++;
-//         charIndex = 0;
-//     }
-// },100);

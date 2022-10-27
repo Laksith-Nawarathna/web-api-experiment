@@ -1,0 +1,56 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Fuzzy Bubbles", cursive;
+}
+
+#output {
+  background-color: rgb(233, 233, 73);
+  height: 100px;
+  width: 100vw;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#text {
+  font-size: 3rem;
+  text-align: center;
+}
+
+#blinker {
+  display: inline-block;
+  background-color: rgb(39, 38, 38);
+  width: 20px;
+  height: 3rem;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+    background-color: black;
+  }
+  70% {
+    opacity: 1;
+    background-color: red;
+  }
+  to {
+    opacity: 0;
+    background-color: black;
+  }
+}
+
+/*# sourceMappingURL=project3.css.map */
